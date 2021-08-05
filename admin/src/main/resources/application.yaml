@@ -1,0 +1,11 @@
+spring:
+  redis:
+    password: 1234qwer
+    database: 14
+    host: 10.10.0.124
+    port: 6379
+delay-queue:
+  thread-size: 20
+
+server:
+  port: 9023
