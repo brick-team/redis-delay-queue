@@ -15,7 +15,7 @@ import java.util.Set;
 @Slf4j
 @Service
 public class DelayBucketService {
-	public static final String BUCKET_REDIS_KEY = "delay_queue:bucket:";
+	public static final String BUCKET_REDIS_KEY = RedisKey.BUCKET_REDIS_KEY;
 	private final StringRedisTemplate stringRedisTemplate;
 	private final Gson gson;
 

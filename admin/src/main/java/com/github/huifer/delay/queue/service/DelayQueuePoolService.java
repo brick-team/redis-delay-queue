@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Service
 public class DelayQueuePoolService {
-	public static final String REDIS_DELAY_QUEUE_POOL_KEY = "delay_queue:delayQueuePool";
+	public static final String REDIS_DELAY_QUEUE_POOL_KEY = RedisKey.REDIS_DELAY_QUEUE_POOL_KEY;
 	private final StringRedisTemplate stringRedisTemplate;
 	private final Gson gson;
 

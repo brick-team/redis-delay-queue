@@ -8,9 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.github.huifer.delay.queue.service.RedisKey.LOCK_KEY;
+
 @Slf4j
 public class DelayBucketHandler implements Runnable {
-    public static final String PK = "delay_queue:lock:";
+    public static final String PK = LOCK_KEY;
     private final String taskType;
     private final DelayBucketService bucketService;
     private final DelayQueuePoolService poolService;

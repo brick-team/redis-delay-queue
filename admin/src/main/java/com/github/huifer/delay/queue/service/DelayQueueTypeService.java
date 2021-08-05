@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Service
 public class DelayQueueTypeService {
-	public static final String DELAY_QUEUE_TYPE_KEY = "delay_queue:taskType";
+	public static final String DELAY_QUEUE_TYPE_KEY = RedisKey.DELAY_QUEUE_TYPE_KEY;
 	private final StringRedisTemplate stringRedisTemplate;
 
 	public DelayQueueTypeService(StringRedisTemplate stringRedisTemplate) {
