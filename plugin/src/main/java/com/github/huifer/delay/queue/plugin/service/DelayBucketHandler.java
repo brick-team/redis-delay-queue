@@ -61,7 +61,6 @@ public class DelayBucketHandler implements Runnable {
 				log.info("执行任务, dt = [{}]", delayQueue);
 				boolean lock = redisLockHelper.get(PK + delayQueue.getTaskId(), delayQueue.getTaskId(), 10);
 				if (lock) {
-					// TODO: 2021/8/5 执行任务
 					for (TaskWorker taskWorker : taskWorkers) {
 						try {
 							taskWorker.invoke(delayQueue.getParams());

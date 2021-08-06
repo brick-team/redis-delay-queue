@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/job")
 public class JobCtr {
-	final
-	TaskSubmitService taskSubmitService;
+	final TaskSubmitService taskSubmitService;
 
 	public JobCtr(TaskSubmitService taskSubmitService) {
 		this.taskSubmitService = taskSubmitService;
@@ -20,6 +19,5 @@ public class JobCtr {
 	@GetMapping("/add")
 	public void addJob(@RequestBody DelayQueueJob delayQueueJobEntity) {
 		this.taskSubmitService.submitTask(delayQueueJobEntity);
-
 	}
 }
