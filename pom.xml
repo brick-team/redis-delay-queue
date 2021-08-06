@@ -12,7 +12,7 @@
 		<module>example</module>
 		<module>admin</module>
 		<module>client</module>
-		<module>plugin</module>
+		<module>redis-delay-queue-plugin</module>
 	</modules>
 
 	<properties>
