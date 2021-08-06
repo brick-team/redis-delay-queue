@@ -8,7 +8,7 @@
 ```
 <dependency>
    <groupId>com.github.huifer</groupId>
-   <artifactId>redis-delay-queue-plugin</artifactId>
+   <artifactId>embedded</artifactId>
    <version>1.0-SNAPSHOT</version>
 </dependency>
 ```

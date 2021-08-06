@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.github.huifer.delay.queue.plugin.web.EmbWebConfig
