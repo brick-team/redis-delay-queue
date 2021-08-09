@@ -19,6 +19,7 @@ public class DelayBucketHandler implements Runnable {
 	private final RedisLockServiceImpl redisLockHelper;
 	private final List<TaskWorker> taskWorkers;
 	private final LogService logService;
+
 	Gson gson = new Gson();
 
 	public DelayBucketHandler(String delayBucketKey, DelayBucketService bucketService,
@@ -96,6 +97,7 @@ public class DelayBucketHandler implements Runnable {
 					}
 					bucketService.del(taskType, taskDetail);
 					redisLockHelper.release(PK + delayQueue.getTaskId(), delayQueue.getTaskId());
+//					this.poolService.deleteDelayQueue(delayQueue.getTaskId());
 				}
 
 			}

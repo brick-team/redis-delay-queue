@@ -42,10 +42,8 @@ public class DynamicMetadataReporter implements ApplicationContextAware {
 	public ResponseEntity work(
 			@RequestBody DelayQueueJob delayQueue
 	) {
-
 		extracted(delayQueue);
 		return ResponseEntity.ok("accepted");
-
 	}
 
 	@Async

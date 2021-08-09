@@ -53,8 +53,6 @@ public class EurekaServerMetaDataService implements DelayQueueJobHandler {
 				}
 			}
 		}
-
-
 	}
 
 	public boolean send(DelayQueueJob delayQueueJob, String uri) {

@@ -34,8 +34,14 @@ public class JobController {
 	@Autowired
 	private ApplicationContext context;
 
-	public JobController(TaskSubmitService taskSubmitService,
-						 @Qualifier("taskExecutorService") ExecutorService taskExecutorService, RedisLockServiceImpl redisLockHelper, DelayBucketService bucketService, DelayQueuePoolService poolService, DelayQueueTypeService delayQueueTypeService) {
+	public JobController(
+			TaskSubmitService taskSubmitService,
+			@Qualifier("taskExecutorService") ExecutorService taskExecutorService,
+			RedisLockServiceImpl redisLockHelper,
+			DelayBucketService bucketService,
+			DelayQueuePoolService poolService,
+			DelayQueueTypeService delayQueueTypeService
+	) {
 		this.taskSubmitService = taskSubmitService;
 		this.taskExecutorService = taskExecutorService;
 		this.redisLockHelper = redisLockHelper;
