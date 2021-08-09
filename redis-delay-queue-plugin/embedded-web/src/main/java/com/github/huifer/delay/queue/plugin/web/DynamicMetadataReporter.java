@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,15 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 @RestController
 @RequestMapping("/hf/delay_queue")
+@EnableAsync
 public class DynamicMetadataReporter implements ApplicationContextAware {
 	private static final Logger log = LoggerFactory.getLogger(DynamicMetadataReporter.class);
 	private final ApplicationInfoManager aim;
@@ -38,23 +39,32 @@ public class DynamicMetadataReporter implements ApplicationContextAware {
 	}
 
 	@PostMapping("/work")
-	public void work(
+	public ResponseEntity work(
 			@RequestBody DelayQueueJob delayQueue
 	) {
-		List<TaskWorker> taskWorkers = findTaskWorkers("");
+
+		extracted(delayQueue);
+		return ResponseEntity.ok("accepted");
+
+	}
+
+	@Async
+	public void extracted(DelayQueueJob delayQueue) {
+		log.info("handler DelayQueueJob = [{}]", delayQueue);
+		List<TaskWorker> taskWorkers = findTaskWorkers(delayQueue.getTaskType());
 		for (TaskWorker taskWorker : taskWorkers) {
 			try {
 				taskWorker.invoke(delayQueue.getParams());
 				log.info("任务执行成功,任务类型=[{}],任务id=[{}],执行类是=[{}],执行参数是=[{}]",
 						delayQueue.getTaskType(),
-						delayQueue.getTaskType(),
+						delayQueue.getTaskId(),
 						taskWorker.clazz().toString(),
 						delayQueue.getParams()
 				);
 			} catch (Exception e) {
 				log.error("任务执行失败,任务类型=[{}],任务id=[{}],执行类是=[{}],执行参数是=[{}]",
 						delayQueue.getTaskType(),
-						delayQueue.getTaskType(),
+						delayQueue.getTaskId(),
 						taskWorker.clazz().toString(),
 						delayQueue.getParams()
 				);
@@ -62,7 +72,6 @@ public class DynamicMetadataReporter implements ApplicationContextAware {
 			}
 
 		}
-
 	}
 
 	private List<TaskWorker> findTaskWorkers(String taskType) {
@@ -90,10 +99,9 @@ public class DynamicMetadataReporter implements ApplicationContextAware {
 	public void init() {
 		Map<String, String> map = aim.getInfo().getMetadata();
 		List<String> strings = taskTypes();
-		StringJoiner stringJoiner = new StringJoiner(",");
-
 		StringJoiner sj = new StringJoiner(", ");
-		for (String name : strings) {
+
+		for (String name : new HashSet<>(strings)) {
 			sj.add(name);
 		}
 		map.put("delay-queue:task", sj.toString());

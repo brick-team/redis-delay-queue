@@ -2,7 +2,6 @@ package com.github.huifer.delay.queue.service;
 
 import com.github.huifer.delay.queue.domain.DelayQueueJob;
 import com.github.huifer.delay.queue.domain.TaskDetail;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +19,6 @@ public class TaskSubmitService {
 		TaskDetail taskDetail = new TaskDetail();
 		taskDetail.setTaskId(delayQueueJobEntity.getTaskId());
 		taskDetail.setDelayTime(delayQueueJobEntity.getDelayTime());
-		bucketService.add(delayQueueJobEntity.getTaskType(), taskDetail);
+		bucketService.add(delayQueueJobEntity.getAppName() + "-" + delayQueueJobEntity.getTaskType(), taskDetail);
 	}
 }

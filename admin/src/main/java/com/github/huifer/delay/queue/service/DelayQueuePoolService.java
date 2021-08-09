@@ -2,7 +2,6 @@ package com.github.huifer.delay.queue.service;
 
 import com.github.huifer.delay.queue.domain.DelayQueueJob;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 

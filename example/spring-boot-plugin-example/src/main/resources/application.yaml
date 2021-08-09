@@ -1,8 +1,7 @@
 spring:
   redis:
-    password: 1234qwer
     database: 14
-    host: 10.10.0.124
+    host: localhost
     port: 6379
 
 server:

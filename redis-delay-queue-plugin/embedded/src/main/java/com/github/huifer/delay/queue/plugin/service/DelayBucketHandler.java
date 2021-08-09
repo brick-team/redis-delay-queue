@@ -72,14 +72,14 @@ public class DelayBucketHandler implements Runnable {
 							);
 							logService.logOk(
 									delayQueue.getTaskType(),
-									delayQueue.getTaskType(),
+									delayQueue.getTaskId(),
 									taskWorker.clazz().toString(),
 									delayQueue.getParams()
 							);
 						} catch (Exception e) {
 							log.error("任务执行失败,任务类型=[{}],任务id=[{}],执行类是=[{}],执行参数是=[{}]",
 									delayQueue.getTaskType(),
-									delayQueue.getTaskType(),
+									delayQueue.getTaskId(),
 									taskWorker.clazz().toString(),
 									delayQueue.getParams()
 							);

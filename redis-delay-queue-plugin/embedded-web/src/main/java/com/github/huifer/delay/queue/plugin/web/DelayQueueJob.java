@@ -18,6 +18,11 @@ public class DelayQueueJob {
 	 */
 	private String params;
 
+	/**
+	 * 应用名称
+	 */
+	private String appName;
+
 	@Override
 	public String toString() {
 		return "DelayQueueJob{" +
@@ -25,7 +30,16 @@ public class DelayQueueJob {
 				", taskType='" + taskType + '\'' +
 				", delayTime=" + delayTime +
 				", params='" + params + '\'' +
+				", appName='" + appName + '\'' +
 				'}';
+	}
+
+	public String getAppName() {
+		return appName;
+	}
+
+	public void setAppName(String appName) {
+		this.appName = appName;
 	}
 
 	public String getTaskId() {

@@ -1,4 +1,5 @@
-# Redis Delay Queue 
+# Redis Delay Queue
+
 基于redis的延迟队列，技术参考[有赞延迟队列](https://tech.youzan.com/queuing_delay/)
 
 ## 插件版使用说明
@@ -143,3 +144,34 @@ Content-Type: application/json
 ```
 
 **注意：插件版本的底层基于线程死循环，允许配置间隔时间建议间隔时间设置1秒**
+
+
+
+
+
+## Spring Cloud Eureka 版本接入
+
+添加pom依赖
+
+```xml
+<dependency>
+   <groupId>com.github.huifer</groupId>
+   <artifactId>embedded-web</artifactId>
+   <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+修改配置文件，总共注意两项：
+
+1. 添加**`spring.application.name`**。
+2. 添加**`delay-queue.center-url`**，该数据为admin项目的url地址。
+
+实现`com.github.huifer.delay.queue.plugin.web.TaskWorker`接口，在TaskWorker中有三个方法
+
+1. 方法invoke用于编写具体的执行逻辑。
+2. 方法type用于表示任务类型。
+3. 方法clazz用于表示处理类的类。
+
+任务提交通过`com.github.huifer.delay.queue.plugin.web.TaskSubmitService`进行提交
+
+**注意：使用eureka版本需要首先启动admin工程**

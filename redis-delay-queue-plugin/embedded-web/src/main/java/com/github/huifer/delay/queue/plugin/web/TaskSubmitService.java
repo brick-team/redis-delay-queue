@@ -3,6 +3,7 @@ package com.github.huifer.delay.queue.plugin.web;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,16 +20,21 @@ public class TaskSubmitService {
 	private RestTemplate restTemplate;
 	@Autowired
 	private CenterConfig centerConfig;
+	@Value("${spring.application.name}")
+	private String appName;
 
 	public void send(DelayQueueJob delayQueueJob) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-		HttpEntity<String> request = new HttpEntity<>(gson.toJson(delayQueueJob), headers);
-		ResponseEntity<String> postForEntity = restTemplate.postForEntity(
-				centerConfig.getCenterUrl() + "/job/add",
-				request,
-				String.class
-		);
-		String body = postForEntity.getBody();
+		if (delayQueueJob != null) {
+			delayQueueJob.setAppName(appName);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+			HttpEntity<String> request = new HttpEntity<>(gson.toJson(delayQueueJob), headers);
+			ResponseEntity<String> postForEntity = restTemplate.postForEntity(
+					centerConfig.getCenterUrl() + "/job/add",
+					request,
+					String.class
+			);
+			String body = postForEntity.getBody();
+		}
 	}
 }

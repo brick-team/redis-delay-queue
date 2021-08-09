@@ -24,6 +24,7 @@ public class DelayQueueJob {
 	 * 参数,json表示
 	 */
 	private String params;
+	private String appName;
 
 	@Override
 	public String toString() {
@@ -32,6 +33,7 @@ public class DelayQueueJob {
 				", taskType='" + taskType + '\'' +
 				", delayTime=" + delayTime +
 				", params='" + params + '\'' +
+				", appName='" + appName + '\'' +
 				'}';
 	}
 }

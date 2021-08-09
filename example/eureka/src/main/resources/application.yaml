@@ -1,0 +1,9 @@
+server:
+  port: 2313
+eureka:
+  instance:
+    hostname: eureka-server
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:2313/eureka
+    register-with-eureka: false
