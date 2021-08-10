@@ -37,7 +37,7 @@ public class DelayBucketHandler implements Runnable {
 		while (true) {
 			// 取最小对象
 			TaskDetail taskDetail = bucketService.getMin(taskType);
-			log.info("处理任务类型 = [{}], taskDetail= [{}]", taskType, taskDetail);
+//			log.info("处理任务类型 = [{}], taskDetail= [{}]", taskType, taskDetail);
 			// 最小对象为空不处理
 			if (taskDetail == null) {
 				sleep();

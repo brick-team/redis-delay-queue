@@ -45,7 +45,7 @@ public class DelayBucketService {
 	 * @return
 	 */
 	public TaskDetail getMin(String bucketKey) {
-		Set<String> range = this.stringRedisTemplate.opsForZSet().range(BUCKET_REDIS_KEY + bucketKey, 0, -1);
+		Set<String> range = this.stringRedisTemplate.opsForZSet().range(BUCKET_REDIS_KEY + bucketKey, 0, 1);
 		if (CollectionUtils.isEmpty(range)) {
 			return null;
 		}
