@@ -47,8 +47,9 @@ public class EurekaServerMetaDataService implements DelayQueueJobHandler {
 				if (taskTypes.contains(taskType)) {
 					URI uri = instance.getUri();
 					String url = uri.toString();
+					// 完成一个发送成功后结束
 					if (send(delayQueueJob, url)) {
-						continue;
+						break;
 					}
 				}
 			}
